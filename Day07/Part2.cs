@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Day07
 {
-    internal class Part1 : Day07
+    internal class Part2 : Day07
     {
         public long Calculate(Stream stream)
         {
@@ -45,6 +45,10 @@ namespace Day07
 
             var mult = start * values.First();
             if (Check(rslt, mult, values.Skip(1)))
+                return true;
+
+            var concat = long.Parse(start.ToString() + values.First().ToString());
+            if (Check(rslt, concat, values.Skip(1)))
                 return true;
 
             return false;
