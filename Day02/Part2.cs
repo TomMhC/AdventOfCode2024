@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Day02
 {
-    internal class Part1 : Day02
+    internal class Part2 : Day02
     {
         public int Calculate(Stream stream)
         {
@@ -25,7 +25,21 @@ namespace Day02
 
         private bool IsValid(InputLine line)
         {
-            return base.IsValid(line.Values!);
+            if (base.IsValid(line.Values!))
+                return true;
+
+            var input = line.Values;
+
+            for (var i = 0; i < input.Count; i++)
+            {
+                var values = new List<int>(input);
+                values.RemoveAt(i);
+                
+                if (base.IsValid(values))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

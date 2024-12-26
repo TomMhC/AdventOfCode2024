@@ -32,5 +32,48 @@ namespace Day02
         {
             public IList<int>? Values;
         }
+
+        private enum Direction
+        {
+            Undetermined,
+            Increasing,
+            Decreasing
+        }
+
+        private Direction GetDirection(int v1, int v2)
+        {
+            if (v1 > v2)
+                return Direction.Decreasing;
+            else
+                return Direction.Increasing;
+        }
+
+        protected bool IsValid(IList<int> ints)
+        {
+            var direction = Direction.Undetermined;
+
+            var first = ints![0];
+
+            for (var i = 1; i < ints.Count; i++)
+            {
+                var current = ints[i];
+                var newDirection = GetDirection(first, current);
+
+                if (direction != Direction.Undetermined)
+                {
+                    if (direction != newDirection)
+                        return false;
+                }
+
+                var abs = Math.Abs(current - first);
+                if (abs > 3 || abs < 1)
+                    return false;
+
+                first = current;
+                direction = newDirection;
+            }
+
+            return true;
+        }
     }
 }
